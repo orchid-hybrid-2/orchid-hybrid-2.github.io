@@ -122,25 +122,14 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
 --> </script>
   </head>
   <body onload="stripe('index'); return true;">
+	  
+	  <h1>DFS operators for minikanren</h1>
+	  
+	  <p>Here we have the usual minikanren fair search operators</p>
+	  <p>and then modified "depth first" variants</p>
+	  <p>This allows mk programming where you can select which kind search subprograms should use</p>
 
-<pre>(<span class="keyword">define-module</span> (<span class="type">minikanren</span> language)
-  <span class="builtin">#:use-module</span> (minikanren run)
-  <span class="builtin">#:use-module</span> (minikanren disequality)
-  <span class="builtin">#:export</span> (fresh conde fresh/dfs conde/dfs ==)
-  <span class="builtin">#:re-export</span> (run^ run* runi =/=))
-(use-modules (minikanren streams)
-	     (minikanren kanren)
-	     (minikanren unification))
-(use-modules (srfi srfi-11))
-
-<span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">MiniKanren
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span>
-(<span class="keyword">define-syntax</span> <span class="variable-name">Zzz</span>
-  (<span class="keyword">syntax-rules</span> ()
-    ((_ g) (<span class="keyword">lambda</span> (k) (<span class="keyword">lambda</span> () (g k))))))
-
+<pre>
 (<span class="keyword">define-syntax</span> <span class="variable-name">conj+</span>
   (<span class="keyword">syntax-rules</span> ()
     ((_ g) (Zzz g))
@@ -186,19 +175,16 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
 (<span class="keyword">define-syntax</span> <span class="variable-name">conde/dfs</span>
   (<span class="keyword">syntax-rules</span> ()
     ((_ (g0 g ...) ...) (disj+/dfs (conj+ g0 g ...) ...))))
-
-<span class="comment-delimiter">;;</span><span class="comment">
-</span><span class="comment-delimiter">;; </span><span class="comment">Unification
-</span><span class="comment-delimiter">;;</span><span class="comment">
-</span>
-(<span class="keyword">define</span> (<span class="function-name">==</span> u v)
-  (<span class="keyword">lambda</span> (k)
-    (<span class="keyword">let-values</span> (((s p) (unify/prefix u v (substitution k))))
-      (<span class="keyword">if</span> s
-	  (normalize-disequality-store
-           (modified-substitution (<span class="keyword">lambda</span> (_) s) k))
-	  mzero))))
 </pre>
+	  <hr/>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <hr/>
 
  </body>
 </html>
