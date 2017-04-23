@@ -214,6 +214,70 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
     (alberta saskatchewan)
     (new-brunswick nova-scotia)))
 </pre>
+	
+	
+	 
+	  <hr/>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <hr/>
+	
+	<h1>The solver in mk</h1>
+	
+	<p>Here is the minikanren code for color in these maps!</p>
+	<p>The function "graph-good-ordering" (omitted from this slide) is what does the map reduction in order to figure out how to arrange the minikanren program so that it only uses local backtracking. That is just a pure scheme function with no minikanren or unification involved.</p>
+	
+<pre>(<span class="keyword">define</span> (<span class="function-name">coloro</span> x)
+  (membero x '(red green blue yellow)))
+
+(<span class="keyword">define</span> (<span class="function-name">different-colors</span> table)
+  (<span class="keyword">lambda</span> (constraint)
+    (fresh (x y x-color y-color)
+      (== constraint `(,x ,y))
+      (assoco x table x-color)
+      (assoco y table y-color)
+      (=/= x-color y-color))))
+
+(<span class="keyword">define</span> (<span class="function-name">my-mapo</span> p l i)
+  <span class="comment-delimiter">;; </span><span class="comment">This has to be done in a depth first search!
+</span>  <span class="comment-delimiter">;; </span><span class="comment">(display (make-list i '-)) (newline)
+</span>  (conde/dfs ((== l '()))
+	     ((fresh/dfs (car cdr)
+		(== l `(,car . ,cdr))
+		(p car)
+		(my-mapo p cdr (+ i 1))))))
+
+(<span class="keyword">define</span> (<span class="function-name">color</span> states edges colors)
+  <span class="comment-delimiter">;; </span><span class="comment">This is a simple constrained generate and test solver
+</span>  <span class="comment-delimiter">;; </span><span class="comment">The interesting part was the graph reduction preprocessing
+</span>  <span class="comment-delimiter">;; </span><span class="comment">stage.
+</span>  (fresh (table)
+    <span class="comment-delimiter">;; </span><span class="comment">make a list to hold the color of each state
+</span>    (make-assoc-tableo states colors table)
+    
+    <span class="comment-delimiter">;; </span><span class="comment">make sure each color is different to neighbours
+</span>    (mapo (different-colors table) edges)
+    
+    <span class="comment-delimiter">;; </span><span class="comment">brute force search for a valid coloring
+</span>    (my-mapo coloro colors 0)))
+
+(<span class="keyword">define</span> (<span class="function-name">do-australia</span>)
+  (<span class="keyword">let</span> ((nodes (graph-good-ordering australia:nodes australia:edges)))
+    (run^ 1 (<span class="keyword">lambda</span> (q) (color nodes australia:edges q)))))
+
+(<span class="keyword">define</span> (<span class="function-name">do-canada</span>)
+  (<span class="keyword">let</span> ((nodes (graph-good-ordering canada:nodes canada:edges)))
+    (run^ 1 (<span class="keyword">lambda</span> (q) (color nodes canada:edges q)))))
+
+(<span class="keyword">define</span> (<span class="function-name">do-america</span>)
+  (<span class="keyword">let</span> ((nodes (graph-good-ordering america:nodes america:edges)))
+    (run^ 1 (<span class="keyword">lambda</span> (q) (color nodes america:edges q)))))
+	</pre>
 
 
  </body>
