@@ -58,6 +58,8 @@ Sat Feb 22 18:04:49 PDT 1997</I>
   <br>
   <br>
   <br>
+  <hr/>
+  
   <H1><A NAME="SECTION00010000000000000000">ALGORITHM = LOGIC + CONTROL</A></H1>
 <P>
         The formula isn't precise, and it won't be precise until
@@ -97,6 +99,73 @@ coloring a specific map.
 <I>John McCarthy <BR>
 Sat Feb 22 18:04:49 PDT 1997</I>
 </ADDRESS>
+  
+  
+  
+    <hr/>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <hr/>
+
+  <H1><A NAME="SECTION00030000000000000000">REDUCING THE MAP</A></H1>
+<P>
+        Kempe (or perhaps someone still earlier)
+noticed that countries with three or fewer neighbors present
+no problem.  No matter how the rest of the map is colored, there is always
+a color available for such a country.<A NAME="tex2html1" HREF="footnode.html#36"><IMG  ALIGN=BOTTOM ALT="gif" SRC="http://www-formal.stanford.edu/icons/foot_motif.gif"></A>
+We use this in to improve a Pereira-Porto map coloring program by
+``reducing the map'' by
+removing such countries and doing our trial-and-error coloring on the
+reduced map, confident that once the reduced map is colored, the coloring
+can be extended to the omitted countries.
+<P>
+        The idea is even more powerful, because eliminating countries with
+three or fewer neighbors may remove enough neighbors from some other
+countries so that they have three or fewer neighbors and can themselves be
+removed.  Therefore, the reduction process should be continued until a
+completely reduced map is obtained in which all countries have at least four
+neighbors.
+  The maps of the states of the U.S. and
+the countries of Europe, Asia, Africa and South America all reduce
+to null maps when countries with three or fewer neighbors are successively
+eliminated
+<P>
+        Likewise the map of Figure 1 reduces to the empty map.  
+Thus we may remove country 4 with two neighbors and country 5 with three
+neigbors.  This leaves all the remaining countries with three or fewer
+neighbors, so the second cycle of reduction leaves the null map,
+reduced map.  Therefore, when we colored in the reverse order
+1, 2, 3, 6, 4, 5, each country is colored without changing the
+color of any previously colored country.
+<P>
+        If the programmer performs this reduction before he writes the
+goal statement, he will write
+<P>
+<P> <IMG WIDTH=526 HEIGHT=93 ALIGN=BOTTOM ALT="displaymath36" SRC="img4.gif"  > <P>
+<P>
+        This PROLOG program will run with only the most local
+backtracking.  Namely, after <I>R</I>1 has been chosen arbitrarily, several
+values will have to be tried for each of the variables <I>R</I>1, <I>R</I>2, <I>R</I>3, <I>R</I>6,
+<I>R</I>4, and <I>R</I>5,
+but once a value has been found that is compatible with the previously
+determined variables, it won't have to be changed again.
+<P>
+        The new PROLOG program is logically equivalent to the previous
+program because it is just a rearrangement of the literals of a
+conjunction.  However, the programmer has done the control.  The
+interesting question is whether the reduction can be expressed in some way
+that can be regarded as adding control to the original logic, i.e.,
+without changing the original logic.
+<P>
+<HR><A NAME="tex2html43" HREF="node4.html"><IMG WIDTH=37 HEIGHT=24 ALIGN=BOTTOM ALT="next" SRC="http://www-formal.stanford.edu/icons/next_motif.gif"></A> <A NAME="tex2html41" HREF="coloring.html"><IMG WIDTH=26 HEIGHT=24 ALIGN=BOTTOM ALT="up" SRC="http://www-formal.stanford.edu/icons/up_motif.gif"></A> <A NAME="tex2html35" HREF="node2.html"><IMG WIDTH=63 HEIGHT=24 ALIGN=BOTTOM ALT="previous" SRC="http://www-formal.stanford.edu/icons/previous_motif.gif"></A>   <BR>
+  
+  
+  
+  
   
 </BODY>
 </html>
