@@ -1,4 +1,4 @@
-# orchid-hybrid-2.github.io
+# Fast map coloring in miniKanren
 
 I've copied just the relevant portions of John McCarthys lesson here:
 * [http://orchid-hybrid-2.github.io/dfs.html](http://orchid-hybrid-2.github.io/dfs.html)
