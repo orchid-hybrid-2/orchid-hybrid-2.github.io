@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>language.scm</title>
+<meta name="generator" content="emacs 25.2.1; htmlfontify 0.21" />
+<style type="text/css"><!-- 
+body { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #000000;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.default   { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #000000;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.default a { font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #000000;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.function-name   { color: #0000ff;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.function-name a { color: #0000ff;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.variable-name   { color: #a0522d;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.variable-name a { color: #a0522d;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.comment   { color: #b22222;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.comment a { color: #b22222;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.comment-delimiter   { color: #b22222;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.comment-delimiter a { color: #b22222;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.builtin   { color: #483d8b;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.builtin a { color: #483d8b;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.type   { color: #228b22;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.type a { color: #228b22;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+span.keyword   { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: none; }
+span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #ffffff;  font-size: 11pt;  text-decoration: underline; }
+ --></style>
+
+    <script type="text/javascript"><!--
+  // this function is needed to work around
+  // a bug in IE related to element attributes
+  function hasClass(obj)
+  {
+      var result = false;
+      if (obj.getAttributeNode("class") != null)
+      {
+          result = obj.getAttributeNode("class").value;
+      }
+      return result;
+  }
+
+  function stripe(id)
+  {
+      // the flag we'll use to keep track of
+      // whether the current row is odd or even
+      var even = false;
+
+      // if arguments are provided to specify the colors
+      // of the even & odd rows, then use the them;
+      // otherwise use the following defaults:
+      var evenColor = arguments[1] ? arguments[1] : "#fff";
+      var oddColor  = arguments[2] ? arguments[2] : "#ddd";
+
+      // obtain a reference to the desired table
+      // if no such table exists, abort
+      var table = document.getElementById(id);
+      if (! table) { return; }
+
+      // by definition, tables can have more than one tbody
+      // element, so we'll have to get the list of child
+      // &lt;tbody&gt;s
+      var tbodies = table.getElementsByTagName("tbody");
+
+      // and iterate through them...
+      for (var h = 0; h < tbodies.length; h++)
+      {
+          // find all the &lt;tr&gt; elements...
+          var trs = tbodies[h].getElementsByTagName("tr");
+
+          // ... and iterate through them
+          for (var i = 0; i < trs.length; i++)
+          {
+              // avoid rows that have a class attribute
+              // or backgroundColor style
+              if (! hasClass(trs[i]) &&
+                  ! trs[i].style.backgroundColor)
+              {
+                  // get all the cells in this row...
+                  var tds = trs[i].getElementsByTagName("td");
+
+                  // and iterate through them...
+                  for (var j = 0; j < tds.length; j++)
+                  {
+                      var mytd = tds[j];
+
+                      // avoid cells that have a class attribute
+                      // or backgroundColor style
+                      if (! hasClass(mytd) &&
+                          ! mytd.style.backgroundColor)
+                      {
+                          mytd.style.backgroundColor =
+                            even ? evenColor : oddColor;
+                      }
+                  }
+              }
+              // flip from odd to even, or vice-versa
+              even =  ! even;
+          }
+      }
+  }
+
+  function toggle_invis( name )
+  {
+      var filter =
+        { acceptNode:
+          function( node )
+          { var classname = node.id;
+            if( classname )
+            { var classbase = classname.substr( 0, name.length );
+              if( classbase == name ) { return NodeFilter.FILTER_ACCEPT; } }
+            return NodeFilter.FILTER_SKIP; } };
+      var walker = document.createTreeWalker( document.body           ,
+                                              NodeFilter.SHOW_ELEMENT ,
+                                              filter                  ,
+                                              false                   );
+      while( walker.nextNode() )
+      {
+          var e = walker.currentNode;
+          if( e.style.display == "none" ) { e.style.display = "inline"; }
+          else                            { e.style.display = "none";   }
+      }
+  }
+--> </script>
+  </head>
+  <body onload="stripe('index'); return true;">
+
+<pre>(<span class="keyword">define-module</span> (<span class="type">minikanren</span> language)
+  <span class="builtin">#:use-module</span> (minikanren run)
+  <span class="builtin">#:use-module</span> (minikanren disequality)
+  <span class="builtin">#:export</span> (fresh conde fresh/dfs conde/dfs ==)
+  <span class="builtin">#:re-export</span> (run^ run* runi =/=))
+(use-modules (minikanren streams)
+	     (minikanren kanren)
+	     (minikanren unification))
+(use-modules (srfi srfi-11))
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">MiniKanren
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span>
+(<span class="keyword">define-syntax</span> <span class="variable-name">Zzz</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ g) (<span class="keyword">lambda</span> (k) (<span class="keyword">lambda</span> () (g k))))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">conj+</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ g) (Zzz g))
+    ((_ g0 g ...) (conj (Zzz g0) (conj+ g ...)))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">disj+</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ g) (Zzz g))
+    ((_ g0 g ...) (disj (Zzz g0) (disj+ g ...)))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">fresh</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ () g0 g ...) (conj+ g0 g ...))
+    ((_ (x0 x ...) g0 g ...)
+     (call/fresh
+      (<span class="keyword">lambda</span> (x0)
+        (fresh (x ...) g0 g ...))))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">conde</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ (g0 g ...) ...) (disj+ (conj+ g0 g ...) ...))))
+
+<span class="comment-delimiter">;; </span><span class="comment">depth first search versions of the same
+</span>
+(<span class="keyword">define-syntax</span> <span class="variable-name">conj+/dfs</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ g) g)
+    ((_ g0 g ...) (conj/dfs g0 (conj+/dfs g ...)))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">disj+/dfs</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ g) g)
+    ((_ g0 g ...) (disj/dfs g0 (disj+/dfs g ...)))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">fresh/dfs</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ () g0 g ...) (conj+/dfs g0 g ...))
+    ((_ (x0 x ...) g0 g ...)
+     (call/fresh
+      (<span class="keyword">lambda</span> (x0)
+        (fresh/dfs (x ...) g0 g ...))))))
+
+(<span class="keyword">define-syntax</span> <span class="variable-name">conde/dfs</span>
+  (<span class="keyword">syntax-rules</span> ()
+    ((_ (g0 g ...) ...) (disj+/dfs (conj+ g0 g ...) ...))))
+
+<span class="comment-delimiter">;;</span><span class="comment">
+</span><span class="comment-delimiter">;; </span><span class="comment">Unification
+</span><span class="comment-delimiter">;;</span><span class="comment">
+</span>
+(<span class="keyword">define</span> (<span class="function-name">==</span> u v)
+  (<span class="keyword">lambda</span> (k)
+    (<span class="keyword">let-values</span> (((s p) (unify/prefix u v (substitution k))))
+      (<span class="keyword">if</span> s
+	  (normalize-disequality-store
+           (modified-substitution (<span class="keyword">lambda</span> (_) s) k))
+	  mzero))))
+</pre>
+
+ </body>
+</html>
