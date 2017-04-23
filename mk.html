@@ -185,6 +185,49 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
 	  <br>
 	  <br>
 	  <hr/>
+	  
+	  
+	  <h1>Canada</h1>
+	  
+	  <p>How can we represent a map in minikanren? A list of the regions and then as association list explaining what each region is next to.</p>
+	  
+	  <img src="canada.png"></img>
+	  
+	<p>becomes</p>
+<pre>
+(<span class="keyword">define</span> <span class="function-name">nodes</span>
+  '(quebec
+    northwest-territories
+    ontario
+    british-columbia
+    manitoba
+    alberta
+    saskatchewan
+    yukon
+    nunavut
+    newfoundland-and-labrador
+    new-brunswick
+    nova-scotia
+    prince-edward-island))
+
+(<span class="keyword">define</span> <span class="function-name">edges</span>
+  '((quebec ontario)
+    (quebec new-brunswick)
+    (quebec newfoundland-and-labrador)
+    (northwest-territories yukon)
+    (northwest-territories british-columbia)
+    (northwest-territories alberta)
+    (northwest-territories saskatchewan)
+    (northwest-territories nunavut)
+    (ontario manitoba)
+    (british-columbia yukon)
+    (british-columbia alberta)
+    (manitoba saskatchewan)
+    (manitoba nunavut)
+    (alberta saskatchewan)
+    (new-brunswick nova-scotia)))
+</pre>
+
 
  </body>
 </html>
