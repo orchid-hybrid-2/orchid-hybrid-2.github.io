@@ -140,14 +140,6 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
     ((_ g) (Zzz g))
     ((_ g0 g ...) (disj (Zzz g0) (disj+ g ...)))))
 
-(<span class="keyword">define-syntax</span> <span class="variable-name">fresh</span>
-  (<span class="keyword">syntax-rules</span> ()
-    ((_ () g0 g ...) (conj+ g0 g ...))
-    ((_ (x0 x ...) g0 g ...)
-     (call/fresh
-      (<span class="keyword">lambda</span> (x0)
-        (fresh (x ...) g0 g ...))))))
-
 (<span class="keyword">define-syntax</span> <span class="variable-name">conde</span>
   (<span class="keyword">syntax-rules</span> ()
     ((_ (g0 g ...) ...) (disj+ (conj+ g0 g ...) ...))))
@@ -164,18 +156,13 @@ span.keyword a { color: #a020f0;  font-family: DejaVu Sans Mono;  font-stretch: 
     ((_ g) g)
     ((_ g0 g ...) (disj/dfs g0 (disj+/dfs g ...)))))
 
-(<span class="keyword">define-syntax</span> <span class="variable-name">fresh/dfs</span>
-  (<span class="keyword">syntax-rules</span> ()
-    ((_ () g0 g ...) (conj+/dfs g0 g ...))
-    ((_ (x0 x ...) g0 g ...)
-     (call/fresh
-      (<span class="keyword">lambda</span> (x0)
-        (fresh/dfs (x ...) g0 g ...))))))
-
 (<span class="keyword">define-syntax</span> <span class="variable-name">conde/dfs</span>
   (<span class="keyword">syntax-rules</span> ()
     ((_ (g0 g ...) ...) (disj+/dfs (conj+ g0 g ...) ...))))
 </pre>
+	  
+	  <p>The difference is simply that we don't "delay" using Zzz in the DFS version.</p>
+	  
 	  <hr/>
 	  <br>
 	  <br>
